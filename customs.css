@@ -1,0 +1,722 @@
+/* ============================================================
+   🌈 CYBERPUNK NEON VS CODE THEME - ENHANCED VERSION
+   ============================================================
+   Phiên bản nâng cấp với 12 cải tiến:
+   1. Animated background        7. Hover tooltip upgrade
+   2. Minimap glow              8. Rainbow scrollbar
+   3. Status bar gradient       9. Tab inactive effects
+   4. Activity bar neon        10. Notification toast
+   5. Line numbers gradient    11. Breadcrumbs gradient
+   6. Suggest widget           12. Git decorations
+   ============================================================ */
+
+/* ==================== CSS VARIABLES ==================== */
+:root {
+  --neon-pink: #ff65f2;
+  --neon-blue: #5cc8ff;
+  --neon-cyan: #67e8f9;
+  --neon-purple: #d66efd;
+  --neon-orange: #fcb564;
+  --neon-green: #40ffd0;
+  --neon-yellow: #fcd34d;
+  --bg-dark: rgba(18, 16, 31, 0.92);
+  --bg-sidebar: rgba(30, 30, 46, 0.85);
+  --glass-blur: 14px;
+  --glass-border-pink: 1px solid rgba(255, 101, 242, 0.25);
+  --glass-border-blue: 1px solid rgba(92, 200, 255, 0.22);
+  --glass-shadow-pink:
+    0 14px 40px rgba(0, 0, 0, 0.5),
+    0 0 18px rgba(255, 101, 242, 0.18),
+    0 0 32px rgba(92, 200, 255, 0.12);
+  --glass-shadow-blue:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 16px rgba(92, 200, 255, 0.15),
+    0 0 24px rgba(255, 101, 242, 0.1);
+  --ui-hover-transition:
+    background-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+
+/* ==================== FONTS ==================== */
+@font-face {
+  font-family: 'JetBrains Mono Local';
+  src: url('file:///D:/Test/jbr/fonts/webfonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.monaco-editor .view-lines {
+  font-family: 'JetBrains Mono Local', 'JetBrains Mono', 'Fira Code', monospace !important;
+  font-size: 14px !important;
+  font-variant-ligatures: normal !important;
+}
+
+.xterm-rows {
+  font-family: 'JetBrains Mono Local', 'JetBrains Mono', monospace !important;
+}
+
+/* ==================== 1. ANIMATED BACKGROUND ==================== */
+.monaco-workbench {
+  background: #0f0c1d !important;
+}
+
+/* Subtle stars overlay for editor */
+.monaco-editor .overflow-guard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.08), transparent),
+    radial-gradient(1px 1px at 60% 70%, rgba(92, 200, 255, 0.08), transparent),
+    radial-gradient(1px 1px at 80% 20%, rgba(255, 101, 242, 0.08), transparent),
+    radial-gradient(1px 1px at 40% 90%, rgba(214, 110, 253, 0.08), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==================== SHARED GLASS / MOTION ==================== */
+.monaco-editor .suggest-widget,
+.monaco-workbench .quick-input-widget,
+.monaco-editor .monaco-hover,
+.monaco-editor-hover,
+.monaco-workbench .notifications-toasts .notification-toast,
+.monaco-workbench .notifications-center {
+  background: var(--bg-dark) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) !important;
+  backdrop-filter: blur(var(--glass-blur)) !important;
+}
+
+.tab:hover,
+.pane-header:hover,
+.monaco-list-row:hover {
+  transition: var(--ui-hover-transition) !important;
+}
+
+/* ==================== SIDEBAR (glass) ==================== */
+.monaco-workbench .part.sidebar {
+  opacity: 1;
+  background: var(--bg-sidebar) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) !important;
+  backdrop-filter: blur(var(--glass-blur)) !important;
+  border-right: 1px solid rgba(255, 101, 242, 0.08) !important;
+}
+
+/* ==================== 8. RAINBOW SCROLLBAR ==================== */
+.monaco-scrollable-element > .scrollbar > .slider {
+  background: linear-gradient(
+    180deg,
+    var(--neon-pink),
+    var(--neon-purple),
+    var(--neon-blue),
+    var(--neon-cyan)
+  ) !important;
+  border-radius: 10px !important;
+  opacity: 0.55 !important;
+  transition: opacity 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.monaco-scrollable-element > .scrollbar > .slider:hover {
+  opacity: 1 !important;
+  box-shadow:
+    0 0 8px rgba(255, 101, 242, 0.6),
+    0 0 14px rgba(92, 200, 255, 0.4) !important;
+}
+
+/* ==================== TAB (ACTIVE - rainbow spin) ==================== */
+.tab.active {
+  position: relative !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 0 10px rgba(102, 207, 255, 0.1),
+    0 0 18px rgba(252, 181, 100, 0.08) !important;
+}
+
+.tab.active::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--active-tab-angle),
+    #5cc8ff 0deg,
+    #67e8f9 55deg,
+    #40ffd0 115deg,
+    #fcb564 180deg,
+    #ff7ac6 245deg,
+    #d66efd 300deg,
+    #5cc8ff 360deg
+  ) !important;
+  animation: active-tab-rainbow-spin 4.5s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+  box-sizing: border-box;
+  filter: drop-shadow(0 0 7px rgba(92, 200, 255, 0.3)) drop-shadow(0 0 10px rgba(252, 181, 100, 0.18));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  will-change: --active-tab-angle;
+}
+
+@property --active-tab-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.tab.active .tab-label,
+.tab.active .tab-actions,
+.tab.active .tab-border-top-container {
+  position: relative;
+  z-index: 1;
+}
+
+.tab.active .tab-border-bottom-container,
+.tab.active .tab-border-bottom {
+  display: none !important;
+}
+
+@keyframes active-tab-rainbow-spin {
+  0%   { --active-tab-angle: 0deg; }
+  100% { --active-tab-angle: 360deg; }
+}
+
+.editor-group-container .title .tabs-container > .tab.active {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 101, 242, 0.1),
+    rgba(92, 200, 255, 0.05)
+  ) !important;
+}
+
+/* ==================== 9. TAB INACTIVE - hover preview glow ==================== */
+.tab:not(.active) {
+  position: relative !important;
+  transition: all 0.25s ease !important;
+  border-bottom: 1px solid transparent !important;
+}
+
+.tab:not(.active)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 101, 242, 0.3),
+    rgba(92, 200, 255, 0.3),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tab:not(.active):hover::after {
+  opacity: 1;
+}
+
+.tab:hover {
+  background: rgba(255, 101, 242, 0.08) !important;
+  box-shadow: 0 0 10px rgba(255, 101, 242, 0.14) !important;
+  transform: translateY(-1px);
+}
+
+.pane-header:hover,
+.monaco-list-row:hover {
+  will-change: auto;
+}
+
+/* ==================== CURSOR ==================== */
+.cursors-layer .cursor {
+  background-image: linear-gradient(
+    245deg,
+    var(--neon-orange),
+    var(--neon-pink),
+    var(--neon-purple)
+  ) !important;
+  box-shadow:
+    0 0 6px rgba(252, 181, 100, 0.45),
+    0 0 10px rgba(255, 101, 242, 0.5),
+    0 0 16px rgba(214, 110, 253, 0.35) !important;
+  animation: cursor-pulse 1.2s ease-in-out infinite !important;
+}
+
+@keyframes cursor-pulse {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.35); }
+}
+
+/* ==================== 6. SUGGEST WIDGET (autocomplete) ==================== */
+.monaco-editor .suggest-widget {
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  border: var(--glass-border-pink) !important;
+  box-shadow: var(--glass-shadow-pink) !important;
+}
+
+.monaco-editor .suggest-widget .monaco-list-row.focused {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 101, 242, 0.18),
+    rgba(92, 200, 255, 0.14)
+  ) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 101, 242, 0.28) !important;
+  border-radius: 8px !important;
+}
+
+.monaco-editor .suggest-widget .suggest-icon,
+.monaco-editor .suggest-widget .codicon {
+  filter: drop-shadow(0 0 3px rgba(92, 200, 255, 0.5)) !important;
+}
+
+/* ==================== QUICK INPUT (Ctrl+P / Ctrl+Shift+P) ==================== */
+.monaco-workbench .quick-input-widget {
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  border: var(--glass-border-pink) !important;
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 0 18px rgba(255, 101, 242, 0.18),
+    0 0 32px rgba(92, 200, 255, 0.12) !important;
+  animation: quick-input-fade-in 0.2s ease-out !important;
+}
+
+@keyframes quick-input-fade-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.monaco-workbench .quick-input-widget .quick-input-titlebar,
+.monaco-workbench .quick-input-widget .quick-input-header,
+.monaco-workbench .quick-input-widget .quick-input-list {
+  background: transparent !important;
+}
+
+.monaco-workbench .quick-input-widget input {
+  border-radius: 10px !important;
+  border: 1px solid rgba(92, 200, 255, 0.18) !important;
+  box-shadow: 0 0 12px rgba(92, 200, 255, 0.08) inset !important;
+}
+
+/* ==================== 7. HOVER TOOLTIP ==================== */
+.monaco-editor .monaco-hover,
+.monaco-editor-hover {
+  border-radius: 12px !important;
+  border: var(--glass-border-blue) !important;
+  box-shadow: var(--glass-shadow-blue) !important;
+  animation: hover-fade-in 0.18s ease-out !important;
+}
+
+@keyframes hover-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== SELECTION ==================== */
+.monaco-editor .selected-text,
+.monaco-editor .selectionHighlight {
+  background: rgba(255, 101, 242, 0.22) !important;
+  box-shadow: inset 0 0 0 1px rgba(92, 200, 255, 0.14) !important;
+  border-radius: 4px !important;
+}
+
+.monaco-editor .view-overlays .current-line,
+.monaco-editor .margin-view-overlays .current-line-margin {
+  background: rgba(92, 200, 255, 0.045) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 101, 242, 0.05) !important;
+  border: none !important;
+}
+
+.monaco-editor .lines-content .core-guide,
+.monaco-editor .margin .core-guide {
+  box-shadow: inset 1px 0 0 rgba(92, 200, 255, 0.12) !important;
+}
+
+/* ==================== 5. LINE NUMBERS GRADIENT ==================== */
+.monaco-editor .margin-view-overlays .line-numbers {
+  background: linear-gradient(
+    180deg,
+    rgba(92, 200, 255, 0.6),
+    rgba(255, 101, 242, 0.5),
+    rgba(214, 110, 253, 0.6)
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  transition: all 0.2s ease !important;
+}
+
+.monaco-editor .margin-view-overlays .line-numbers.active-line-number {
+  -webkit-text-fill-color: transparent !important;
+  background: linear-gradient(180deg, var(--neon-pink), var(--neon-orange)) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  font-weight: 700 !important;
+  filter: drop-shadow(0 0 4px rgba(255, 101, 242, 0.6)) !important;
+}
+
+/* ==================== LIST / EXPLORER ==================== */
+.monaco-list-row.focused,
+.monaco-list-row.selected {
+  border-radius: 10px !important;
+  background: rgba(0, 123, 255, 0.18) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(125, 211, 252, 0.2),
+    0 0 14px rgba(0, 123, 255, 0.14) !important;
+}
+
+.monaco-workbench .part.sidebar .monaco-list-row:hover,
+.monaco-workbench .part.panel .monaco-list-row:hover {
+  background: rgba(255, 101, 242, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(92, 200, 255, 0.08) !important;
+  border-radius: 10px !important;
+}
+
+/* ==================== 11. BREADCRUMBS GRADIENT ==================== */
+.monaco-breadcrumbs .monaco-breadcrumb-item {
+  transition: all 0.22s ease !important;
+}
+
+.monaco-breadcrumbs .monaco-breadcrumb-item:hover {
+  filter: brightness(1.25) drop-shadow(0 0 4px rgba(255, 101, 242, 0.4));
+  transform: translateY(-1px);
+}
+
+.monaco-breadcrumbs .monaco-breadcrumb-item .codicon-chevron-right {
+  color: var(--neon-pink) !important;
+  opacity: 0.6 !important;
+  filter: drop-shadow(0 0 3px rgba(255, 101, 242, 0.4)) !important;
+}
+
+.breadcrumbs-control .monaco-breadcrumb-item:hover,
+.action-item:hover .action-label {
+  filter: brightness(1.2) drop-shadow(0 0 4px rgba(255, 101, 242, 0.25));
+}
+
+/* ==================== 2. MINIMAP GLOW ==================== */
+.monaco-editor .minimap {
+  border-left: 1px solid rgba(255, 101, 242, 0.15) !important;
+  box-shadow:
+    inset 2px 0 12px rgba(92, 200, 255, 0.06),
+    -2px 0 10px rgba(255, 101, 242, 0.08) !important;
+}
+
+.monaco-editor .minimap-slider {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 101, 242, 0.2),
+    rgba(92, 200, 255, 0.2)
+  ) !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+}
+
+.monaco-editor .minimap-slider:hover,
+.monaco-editor .minimap-slider.active {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 101, 242, 0.35),
+    rgba(92, 200, 255, 0.35)
+  ) !important;
+  box-shadow: 0 0 10px rgba(255, 101, 242, 0.4) !important;
+}
+
+/* ==================== 3. STATUS BAR GRADIENT ==================== */
+.monaco-workbench .part.statusbar {
+  background: rgba(30, 15, 50, 0.95) !important;
+  border-top: 1px solid rgba(255, 101, 242, 0.2) !important;
+  box-shadow: 0 -2px 12px rgba(255, 101, 242, 0.12) !important;
+}
+
+.monaco-workbench .part.statusbar .statusbar-item {
+  transition: all 0.2s ease !important;
+}
+
+.monaco-workbench .part.statusbar .statusbar-item:hover {
+  background: rgba(255, 101, 242, 0.15) !important;
+  filter: drop-shadow(0 0 4px rgba(255, 101, 242, 0.4));
+}
+
+.monaco-workbench .part.statusbar .statusbar-item .codicon {
+  filter: drop-shadow(0 0 2px rgba(92, 200, 255, 0.3)) !important;
+}
+
+/* ==================== 4. ACTIVITY BAR NEON ==================== */
+.monaco-workbench .part.activitybar {
+  background: rgba(15, 12, 29, 0.9) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  backdrop-filter: blur(10px) !important;
+  border-right: 1px solid rgba(255, 101, 242, 0.1) !important;
+}
+
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item {
+  transition: all 0.25s ease !important;
+  position: relative !important;
+}
+
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item:hover .action-label {
+  filter: drop-shadow(0 0 4px rgba(92, 200, 255, 0.5)) brightness(1.15) !important;
+  transform: scale(1.05);
+}
+
+/* Codicon chuẩn của VS Code */
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item.checked .codicon,
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item.checked [class*='codicon-'] {
+  color: var(--neon-pink) !important;
+  filter: drop-shadow(0 0 3px rgba(255, 101, 242, 0.45)) !important;
+  opacity: 1 !important;
+}
+
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item:hover .codicon,
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item:hover [class*='codicon-'] {
+  filter: drop-shadow(0 0 4px rgba(92, 200, 255, 0.5)) brightness(1.15) !important;
+  opacity: 1 !important;
+}
+
+/* fallback theo accessibility label nếu extension đổi class */
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item.checked [aria-label='Claude Code'],
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item.checked [aria-label='Containers'],
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item.checked [aria-label='Microsoft Edge Tools'],
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item.checked [aria-label='SQLTools'] {
+  background-color: var(--neon-pink) !important;
+  filter: drop-shadow(0 0 3px rgba(255, 101, 242, 0.45)) !important;
+}
+
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item:hover [aria-label='Claude Code'],
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item:hover [aria-label='Containers'],
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item:hover [aria-label='Microsoft Edge Tools'],
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item:hover [aria-label='SQLTools'] {
+  filter: drop-shadow(0 0 4px rgba(92, 200, 255, 0.5)) brightness(1.15) !important;
+}
+
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item.checked {
+  background: transparent !important;
+}
+
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item.checked .active-item-indicator {
+  background: transparent !important;
+}/* Đảm bảo icon luôn trên cùng, không bị badge/indicator che */
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item .action-label {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Indicator bar bên trái khi icon active - mảnh, không che icon */
+.monaco-workbench .part.activitybar .monaco-action-bar .action-item.checked::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 30%;
+  bottom: 30%;
+  width: 2px;
+  background: linear-gradient(180deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 4px rgba(255, 101, 242, 0.5);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* activity-bar-glow removed */
+
+
+/* ==================== 10. NOTIFICATION TOAST ==================== */
+.monaco-workbench .notifications-toasts .notification-toast {
+  border-radius: 14px !important;
+  border: var(--glass-border-pink) !important;
+  box-shadow: var(--glass-shadow-pink) !important;
+  overflow: hidden !important;
+  animation: notification-slide-in 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2) !important;
+}
+
+@keyframes notification-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.monaco-workbench .notifications-toasts .notification-toast::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    var(--neon-pink),
+    var(--neon-purple),
+    var(--neon-blue)
+  );
+  box-shadow: 0 0 10px rgba(255, 101, 242, 0.6);
+}
+
+.monaco-workbench .notifications-toasts .notification-toast .notification-list-item-icon {
+  filter: drop-shadow(0 0 4px rgba(92, 200, 255, 0.6)) !important;
+}
+
+/* Notifications center */
+.monaco-workbench .notifications-center {
+  border-radius: 14px !important;
+  border: var(--glass-border-blue) !important;
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(92, 200, 255, 0.15) !important;
+  overflow: hidden !important;
+}
+
+/* ==================== 12. GIT DECORATIONS ==================== */
+/* Modified files - orange glow */
+.monaco-list-row .explorer-item .label-name.git-decoration-modified,
+.monaco-list-row[aria-label*="modified"] .label-name {
+  color: var(--neon-orange) !important;
+  text-shadow: 0 0 6px rgba(252, 181, 100, 0.5) !important;
+}
+
+/* Added/Untracked files - green glow */
+.monaco-list-row .explorer-item .label-name.git-decoration-untracked,
+.monaco-list-row[aria-label*="untracked"] .label-name {
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 6px rgba(64, 255, 208, 0.5) !important;
+}
+
+/* Deleted files - red/pink glow */
+.monaco-list-row .explorer-item .label-name.git-decoration-deleted,
+.monaco-list-row[aria-label*="deleted"] .label-name {
+  color: #ff6b81 !important;
+  text-shadow: 0 0 6px rgba(255, 107, 129, 0.6) !important;
+  text-decoration: line-through !important;
+  opacity: 0.8 !important;
+}
+
+/* Conflicting files - purple glow */
+.monaco-list-row .explorer-item .label-name.git-decoration-conflicting,
+.monaco-list-row[aria-label*="conflict"] .label-name {
+  color: var(--neon-purple) !important;
+  text-shadow: 0 0 8px rgba(214, 110, 253, 0.7) !important;
+  font-weight: 600 !important;
+}
+
+/* Git decoration badges */
+.explorer-item-decoration {
+  filter: drop-shadow(0 0 3px currentColor) !important;
+  font-weight: 700 !important;
+}
+
+/* Diff editor colors */
+.monaco-editor .line-insert,
+.monaco-editor .char-insert {
+  background: rgba(64, 255, 208, 0.12) !important;
+  box-shadow: inset 2px 0 0 var(--neon-green) !important;
+}
+
+.monaco-editor .line-delete,
+.monaco-editor .char-delete {
+  background: rgba(255, 107, 129, 0.12) !important;
+  box-shadow: inset 2px 0 0 #ff6b81 !important;
+}
+
+/* ==================== BRACKET PAIR COLORIZATION ==================== */
+.monaco-editor .bracket-highlighting-0 {
+  color: #ff7ab6 !important;
+  text-shadow: 0 0 4px rgba(255, 122, 182, 0.3);
+}
+
+.monaco-editor .bracket-highlighting-1 {
+  color: #7dd3fc !important;
+  text-shadow: 0 0 4px rgba(125, 211, 252, 0.3);
+}
+
+.monaco-editor .bracket-highlighting-2 {
+  color: #86efac !important;
+  text-shadow: 0 0 4px rgba(134, 239, 172, 0.3);
+}
+
+.monaco-editor .bracket-highlighting-3 {
+  color: #f9a8d4 !important;
+  text-shadow: 0 0 4px rgba(249, 168, 212, 0.3);
+}
+
+.monaco-editor .bracket-highlighting-4 {
+  color: #fcd34d !important;
+  text-shadow: 0 0 4px rgba(252, 211, 77, 0.3);
+}
+
+.monaco-editor .bracket-highlighting-5 {
+  color: #c4b5fd !important;
+  text-shadow: 0 0 4px rgba(196, 181, 253, 0.3);
+}
+
+.monaco-editor .bracket-highlighting-6 {
+  color: #67e8f9 !important;
+  text-shadow: 0 0 4px rgba(103, 232, 249, 0.3);
+}
+
+/* ==================== BONUS: BUTTONS & INPUTS ==================== */
+.monaco-button {
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 101, 242, 0.8),
+    rgba(214, 110, 253, 0.8)
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 10px rgba(255, 101, 242, 0.3) !important;
+}
+
+.monaco-button:hover {
+  filter: brightness(1.15) !important;
+  transform: translateY(-1px) !important;
+  box-shadow:
+    0 4px 16px rgba(255, 101, 242, 0.45),
+    0 0 20px rgba(92, 200, 255, 0.25) !important;
+}
+
+.monaco-inputbox {
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+.monaco-inputbox.synthetic-focus,
+.monaco-inputbox:focus-within {
+  border-color: var(--neon-pink) !important;
+  box-shadow:
+    0 0 0 2px rgba(255, 101, 242, 0.2),
+    0 0 12px rgba(255, 101, 242, 0.3) !important;
+}
+
+/* ==================== PANEL (terminal/output) ==================== */
+.monaco-workbench .part.panel {
+  background: rgba(18, 16, 31, 0.88) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
+  border-top: 1px solid rgba(255, 101, 242, 0.12) !important;
+  box-shadow: 0 -2px 14px rgba(255, 101, 242, 0.08) !important;
+}
+
+/* ==================== TITLE BAR ==================== */
+.monaco-workbench .part.titlebar {
+  background: linear-gradient(
+    90deg,
+    rgba(20, 12, 35, 0.95),
+    rgba(30, 15, 50, 0.95),
+    rgba(20, 12, 35, 0.95)
+  ) !important;
+  border-bottom: 1px solid rgba(255, 101, 242, 0.1) !important;
+}
+
+/* ==================== END OF CUSTOM THEME ==================== */
